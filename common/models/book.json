@@ -1,0 +1,52 @@
+{
+  "name": "Book",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "servicio": {
+      "type": "string"
+    },
+    "categoria": {
+      "type": "string"
+    },
+    "monto": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "detalleReclamo": {
+      "type": "string"
+    },
+    "detalle": {
+      "type": "string"
+    },
+    "pedido": {
+      "type": "string"
+    },
+    "numero": {
+      "type": "string"
+    },
+    "usuarioId": {
+      "type": {
+        "required": true
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

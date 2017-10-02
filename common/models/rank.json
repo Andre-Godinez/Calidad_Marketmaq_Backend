@@ -1,0 +1,47 @@
+{
+  "name": "Rank",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tipoRank": {
+      "type": "string"
+    },
+    "rankStar": {
+      "type": "number"
+    },
+    "usuarioId": {
+      "type": {
+        "required": true
+      }
+    },
+    "companyId": {
+      "type": {
+        "required": true
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

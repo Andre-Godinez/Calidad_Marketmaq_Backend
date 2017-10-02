@@ -1,0 +1,101 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db"
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Note": {
+    "dataSource": "db"
+  },
+  "Country": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Category": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Brand": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Company": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Plan": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Usuario": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Publication": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Favorite": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Comment": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Rank": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Book": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "RankPublication": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "RankCompany": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Vistas": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  },
+  "Slider": {
+    "dataSource": "mongodbConnection",
+    "public": true
+  }
+}

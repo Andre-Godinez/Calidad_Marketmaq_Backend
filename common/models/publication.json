@@ -1,0 +1,204 @@
+{
+  "name": "Publication",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "ctName": {
+      "type": "string"
+    },
+    "ctLastName": {
+      "type": "string"
+    },
+    "ctEmail": {
+      "type": "string"
+    },
+    "ctPhone01": {
+      "type": "string"
+    },
+    "ctPhone02": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "ctHorario": {
+      "type": "string"
+    },
+    "uDepartamento": {
+      "type": "string"
+    },
+    "uProvincia": {
+      "type": "string"
+    },
+    "uDistrito": {
+      "type": "string"
+    },
+    "uDireccion": {
+      "type": "string"
+    },
+    "uReferencia": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    },
+    "prConsultar": {
+      "type": "boolean"
+    },
+    "prTipoAlquiler": {
+      "type": "string"
+    },
+    "prMoneda": {
+      "type": "string"
+    },
+    "prPrecio": {
+      "type": "number"
+    },
+    "prPrecioOferta": {
+      "type": "number"
+    },
+    "condicion": {
+      "type": "string"
+    },
+    "modelo": {
+      "type": "string"
+    },
+    "horasMaquina": {
+      "type": "number"
+    },
+    "operacion": {
+      "type": "string"
+    },
+    "urlImages": {
+      "type": [
+        "string"
+      ]
+    },
+    "location": {
+      "type": "geopoint"
+    },
+    "plan": {
+      "type": "string"
+    },
+    "banner": {
+      "type": "string"
+    },
+    "dateCreated": {
+      "type": "date"
+    },
+    "dateStart": {
+      "type": "date"
+    },
+    "dateTerminated": {
+      "type": "date"
+    },
+    "dateUpdate": {
+      "type": "date"
+    },
+    "historyCreated": {
+      "type": [
+        "date"
+      ]
+    },
+    "rkStarTotal": {
+      "type": "number"
+    },
+    "rkStarFive": {
+      "type": "number"
+    },
+    "rkStarFour": {
+      "type": "number"
+    },
+    "rkStarThree": {
+      "type": "number"
+    },
+    "rkStarTwo": {
+      "type": "number"
+    },
+    "rkStarOne": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    },
+    "brandId": {
+      "type": {
+        "required": true
+      }
+    },
+    "countryId": {
+      "type": {
+        "required": true
+      }
+    },
+    "companyId": {
+      "type": {
+        "required": true
+      }
+    },
+    "usuarioId": {
+      "type": {
+        "required": true
+      }
+    },
+    "categoryId": {
+      "type": {
+        "required": true
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "country": {
+      "type": "belongsTo",
+      "model": "Country",
+      "foreignKey": ""
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
+      "foreignKey": ""
+    },
+    "brand": {
+      "type": "belongsTo",
+      "model": "Brand",
+      "foreignKey": ""
+    },
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": ""
+    },
+    "favorites": {
+      "type": "hasMany",
+      "model": "Favorite",
+      "foreignKey": ""
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "Comment",
+      "foreignKey": ""
+    },
+    "rankPublications": {
+      "type": "hasMany",
+      "model": "RankPublication",
+      "foreignKey": ""
+    },
+    "vistas": {
+      "type": "hasMany",
+      "model": "Vistas",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

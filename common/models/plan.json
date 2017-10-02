@@ -1,0 +1,55 @@
+{
+  "name": "Plan",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "total": {
+      "type": "number"
+    },
+    "simple": {
+      "type": "number",
+      "default": 0
+    },
+    "destacado": {
+      "type": "number",
+      "default": 0
+    },
+    "premium": {
+      "type": "number",
+      "default": 0
+    },
+    "dateCreated": {
+      "type": "date"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    },
+    "dateTerminated": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "country": {
+      "type": "belongsTo",
+      "model": "Country",
+      "foreignKey": ""
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

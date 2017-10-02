@@ -1,0 +1,50 @@
+{
+  "name": "Country",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuarios": {
+      "type": "hasMany",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "publications": {
+      "type": "hasMany",
+      "model": "Publication",
+      "foreignKey": ""
+    },
+    "rankCompanies": {
+      "type": "hasMany",
+      "model": "RankCompany",
+      "foreignKey": ""
+    },
+    "plans": {
+      "type": "hasMany",
+      "model": "Plan",
+      "foreignKey": ""
+    },
+    "sliders": {
+      "type": "hasMany",
+      "model": "Slider",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Category",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "validations": [],
+  "relations": {
+    "publications": {
+      "type": "hasMany",
+      "model": "Publication",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

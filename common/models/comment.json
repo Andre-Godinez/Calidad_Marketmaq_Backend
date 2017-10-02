@@ -1,0 +1,31 @@
+{
+  "name": "Comment",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "dateRegister": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "publication": {
+      "type": "belongsTo",
+      "model": "Publication",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

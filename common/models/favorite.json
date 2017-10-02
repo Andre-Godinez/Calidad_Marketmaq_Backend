@@ -1,0 +1,28 @@
+{
+  "name": "Favorite",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "dateCreated": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "publication": {
+      "type": "belongsTo",
+      "model": "Publication",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

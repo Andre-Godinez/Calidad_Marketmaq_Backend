@@ -1,0 +1,47 @@
+{
+  "name": "Slider",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "departamento": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "distrito": {
+      "type": "string"
+    },
+    "imagen_elite": {
+      "type": "string"
+    },
+    "marca": {
+      "type": "string"
+    },
+    "logomarca": {
+      "type": "string"
+    },
+    "modelo": {
+      "type": "string"
+    },
+    "operacion": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "country": {
+      "type": "belongsTo",
+      "model": "Country",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

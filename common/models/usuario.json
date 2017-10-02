@@ -1,0 +1,190 @@
+{
+  "name": "Usuario",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "home": {
+      "type": "number",
+      "default": 1
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "emailAlternativo": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "dni": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    },
+    "dateBirthday": {
+      "type": "date"
+    },
+    "phone01": {
+      "type": "string"
+    },
+    "phone02": {
+      "type": "string"
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "urlPhoto": {
+      "type": "string"
+    },
+    "opActive": {
+      "type": "boolean"
+    },
+    "opLinkedin": {
+      "type": "string"
+    },
+    "opFacebook": {
+      "type": "string"
+    },
+    "opPresentacion": {
+      "type": "string"
+    },
+    "uDepartamento": {
+      "type": "string"
+    },
+    "uProvincia": {
+      "type": "string"
+    },
+    "uDistrito": {
+      "type": "string"
+    },
+    "uDireccion": {
+      "type": "string"
+    },
+    "recibeInfo": {
+      "type": "boolean"
+    },
+    "emActive": {
+      "type": "boolean"
+    },
+    "emNombre": {
+      "type": "string"
+    },
+    "emLogo": {
+      "type": "string"
+    },
+    "emRuc": {
+      "type": "string"
+    },
+    "rkpuStarTotal": {
+      "type": "number"
+    },
+    "rkpuStarFive": {
+      "type": "number"
+    },
+    "rkpuStarFour": {
+      "type": "number"
+    },
+    "rkpuStarThree": {
+      "type": "number"
+    },
+    "rkpuStarTwo": {
+      "type": "number"
+    },
+    "rkpuStarOne": {
+      "type": "number"
+    },
+    "rkopStarTotal": {
+      "type": "number"
+    },
+    "rkopStarFive": {
+      "type": "number"
+    },
+    "rkopStarFour": {
+      "type": "number"
+    },
+    "rkopStarThree": {
+      "type": "number"
+    },
+    "rkopStarTwo": {
+      "type": "number"
+    },
+    "rkopStarOne": {
+      "type": "number"
+    },
+    "picture": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "provider_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    },
+    "countryId": {
+      "type": {
+        "required": false
+      }
+    },
+    "companyId": {
+      "type": {
+        "required": false
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "country": {
+      "type": "belongsTo",
+      "model": "Country",
+      "foreignKey": ""
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
+      "foreignKey": ""
+    },
+    "favorites": {
+      "type": "hasMany",
+      "model": "Favorite",
+      "foreignKey": ""
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "Comment",
+      "foreignKey": ""
+    },
+    "publications": {
+      "type": "hasMany",
+      "model": "Publication",
+      "foreignKey": ""
+    },
+    "ranks": {
+      "type": "hasMany",
+      "model": "Rank",
+      "foreignKey": ""
+    },
+    "books": {
+      "type": "hasMany",
+      "model": "Book",
+      "foreignKey": ""
+    },
+    "rankPublications": {
+      "type": "hasMany",
+      "model": "RankPublication",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

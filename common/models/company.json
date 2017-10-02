@@ -1,0 +1,73 @@
+{
+  "name": "Company",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "ruc": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "number"
+    },
+    "status": {
+      "type": "number",
+      "default": 1
+    },
+    "urlImage": {
+      "type": "string"
+    },
+    "active": {
+      "type": "number",
+      "default": 1
+    },
+    "enabled": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuarios": {
+      "type": "hasMany",
+      "model": "Usuario",
+      "foreignKey": ""
+    },
+    "publications": {
+      "type": "hasMany",
+      "model": "Publication",
+      "foreignKey": ""
+    },
+    "ranks": {
+      "type": "hasMany",
+      "model": "Rank",
+      "foreignKey": ""
+    },
+    "rankCompanies": {
+      "type": "hasMany",
+      "model": "RankCompany",
+      "foreignKey": ""
+    },
+    "plans": {
+      "type": "hasMany",
+      "model": "Plan",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

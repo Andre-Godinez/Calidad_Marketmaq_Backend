@@ -6,8 +6,10 @@ module.exports = function (server) {
   var Publication = server.models.Publication;
   var Company = server.models.Company;
 
+  /* CREAR PUBLICACION */
   router.post('/publications', (req, res) => {
     let newPublication = req.body;
+    console.log("newPublication");
     if (typeof (newPublication.location.lat) !== 'number') {
       newPublication.location = {
         lat: -12.0872234,
@@ -17,6 +19,7 @@ module.exports = function (server) {
     }
     newPublication.plan = 'simple';
     Publication.create(newPublication, (err, publ) => {
+      console.log(JSON.stringify(publ));
       if (err) {
         return res.status(500).json({
           err: err,
@@ -28,7 +31,9 @@ module.exports = function (server) {
     });
   });
 
+  /* DEVUELVES PUBLICACIONES */
   router.get('/publications', (req, res) => {
+    /* FILTROS */
     var brandId = req.query.brandId;
     var companyId = req.query.companyId;
     var countryId = req.query.countryId;
@@ -183,6 +188,7 @@ module.exports = function (server) {
     }); */
   });
 
+  /* DEVUELVE PUBLICACIONES EN EL ADMIN */
   router.get('/publications-admin', (req, res) => {
     var brandId = req.query.brandId;
     var companyId = req.query.companyId;
@@ -269,6 +275,7 @@ module.exports = function (server) {
     });
   });
 
+  /* PUBLICACIONES QUE NO TIENEN IMAGENES */
   router.get('/publication-null', (req, res) => {
     Publication.find({}, (err, result) => {
       if (err) {
@@ -282,6 +289,7 @@ module.exports = function (server) {
     });
   })
 
+  /* PUBLICACIONES SIN NINGUN FILTRO */
   router.get('/publication-all', (req, res) => {
     Publication.find({}, (err, result) => {
       if (err) {
@@ -295,6 +303,7 @@ module.exports = function (server) {
     });
   })
 
+  /* ELIMINAR PUBLICACION PERO CAMBIO STATUS */
   router.delete('/publications/:id', (req, res) => {
     let id = req.params.id;
     Publication.findById(id, (err, publication) => {
@@ -316,6 +325,7 @@ module.exports = function (server) {
     });
   });
 
+  /* ELIMINAR PUBLICACION PERO EN LA BASE DE DATOS */
   router.delete('/publications-delete/:id', (req, res) => {
     let id = req.params.id;
     Publication.destroyById(id, (err) => {
@@ -330,8 +340,10 @@ module.exports = function (server) {
     });
   });
 
+  /* EDITAS PUBLICACION POR ID */
   router.put('/publications/:id', (req, res) => {
     let id = req.params.id;
+    console.log('/publications/:id'+'/publications/:id'+'/publications/:id'+'/publications/:id');
     console.log(req.body);
     let ctName = req.body.ctName;
     let ctLastName = req.body.ctLastName;
@@ -405,14 +417,23 @@ module.exports = function (server) {
       if (uDistrito) {
         publication.uDistrito = uDistrito;
       }
+      if (uProvincia) {
+        publication.uProvincia = uProvincia;
+      }
       if (uDireccion) {
         publication.uDireccion = uDireccion;
       }
       if (uReferencia) {
         publication.uReferencia = uReferencia;
       }
-      if (age) {
+      if (age >= 0) {
         publication.age = age;
+      }
+      if (description) {
+        publication.description = description;
+      }
+      if (horasMaquina >= 0) {
+        publication.horasMaquina = horasMaquina;
       }
       if (prConsultar) {
         publication.prConsultar = prConsultar;
@@ -423,7 +444,7 @@ module.exports = function (server) {
       if (prMoneda) {
         publication.prMoneda = prMoneda;
       }
-      if (prPrecio) {
+      if (prPrecio >= 0) {
         publication.prPrecio = prPrecio;
       }
       if (prPrecioOferta) {
@@ -438,8 +459,12 @@ module.exports = function (server) {
       if (urlImages) {
         publication.urlImages = urlImages;
       }
-      if (location) {
-        publication.location = location;
+      // location = {}
+      console.log('location: ', location);
+      if(location){
+        if (typeof (location.lat) === 'number' && typeof (location.lng) === 'number') {
+          publication.location = location;
+        }
       }
       if (plan) {
         publication.plan = plan;
@@ -473,6 +498,9 @@ module.exports = function (server) {
       }
       if (categoryId) {
         publication.categoryId = categoryId;
+      }
+      if (modelo) {
+        publication.modelo = modelo;
       }
 
       if (!publication.categoryId || !publication.brandId

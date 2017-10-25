@@ -24,6 +24,11 @@
       "model": "Usuario",
       "foreignKey": ""
     },
+    "companies": {
+      "type": "hasMany",
+      "model": "Company",
+      "foreignKey": ""
+    },
     "publications": {
       "type": "hasMany",
       "model": "Publication",

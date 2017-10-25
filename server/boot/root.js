@@ -34,7 +34,7 @@ module.exports = function (server) {
   var upload = multer({
     storage: storage,
     fileFilter: function (req, file, callback) { //file filter
-      if (['jpg', 'png', 'jpeg'].indexOf(file.originalname.split('.')[file.originalname.split('.').length - 1]) === -1) {
+      if (['jpg', 'png', 'jpeg', 'JPG', 'PNG', 'JPEG'].indexOf(file.originalname.split('.')[file.originalname.split('.').length - 1]) === -1) {
         return callback(new Error('Wrong extension type'));
       }
       callback(null, true);

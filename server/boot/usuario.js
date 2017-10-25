@@ -22,8 +22,66 @@ module.exports = function (server) {
   var Company = server.models.Company;
   var Plan = server.models.Plan;
 
-  router.post('/usuarios', (req, res) => {
-    let user = {};
+  router.post('/usuario-id', (req, res) => {
+    Usuario.findOne({
+      where: {
+        email: req.body.email
+      }
+    }, (err, result_user) => {
+      if (err) {
+        return res.status(500).json({
+          err: err,
+          msg: 'Error al encontrar usuario'
+        });
+      }
+      if (result_user) {
+        let obj = {
+          id: result_user.id
+        };
+        return res.status(200).json(obj);
+      } else {
+        return res.status(500).json({
+          err: true,
+          msg: "No encontrado"
+        });
+      }
+    });
+  });
+
+  /* CREAR USUARIO NORMAL */
+  router.post('/usuarios-normal', (req, res) => {
+    /* let user = {};
+    user.email = req.body.email;
+    user.password = req.body.password; */
+    Usuario.create(req.body, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          err: err,
+          message: 'Error al guardar datos'
+        });
+      }
+      /* let message = { email: result.email }
+      let renderer = server.loopback.template(path.resolve(__dirname, '../../server/views/welcome.ejs'));
+      let html_body = renderer(message);*/
+      transporter.sendMail({
+        from: '"Admin Easymaq" <admin@easymaq.com>',
+        to: result.email,
+        subject: 'Easymaq',
+        html: compiledTemplate.render({ nombre: req.body.email })
+      }, function (error, response) {
+        if (error) {
+          return res.status(500).json({
+            err: error,
+            msg: 'Error al enviar email'
+          });
+        }
+        return res.status(200).json(result);
+      });
+    });
+  });
+
+  /* ELEVAS UN USUARIO NORMAL */
+  router.put('/usuario-upgrade/:id', (req, res) => {
     let company = {};
     let newPlan = {
       price: 0,
@@ -33,10 +91,6 @@ module.exports = function (server) {
       dateCreated: moment().toISOString(),
       dateTerminated: moment().add(6, 'months').toISOString()
     }
-    user.email = req.body.email;
-    user.password = req.body.password;
-    user.home = 2;
-    user.countryId = req.body.countryId;
     company.name = req.body.empresa;
     company.urlImage = 'https://s3.amazonaws.com/easymaq-companies/aviso_home.png';
     Company.create(company, (err, comp) => {
@@ -46,30 +100,37 @@ module.exports = function (server) {
           message: 'Error al crear company'
         });
       }
-      user.companyId = comp.id;
       newPlan.companyId = comp.id;
-      Usuario.create(user, (err, result) => {
-        if (err) {
-          return res.status(500).json({
-            err: err,
-            message: 'Error al guardar datos'
+      ///////////////
+      let id = req.params.id;
+
+      let countryId = req.body.countryId;
+      let companyId = comp.id;
+
+      Usuario.findById(id, (err, usuario) => {
+        if (err) return res.status(500).json({
+          err: err,
+          status: 500,
+          message: 'Error al buscar usuario'
+        });
+        if (!usuario) {
+          return res.status(404).json({
+            status: 404,
+            message: 'Usuario no encontrado'
           });
         }
-        /* let message = { email: result.email }
-        let renderer = server.loopback.template(path.resolve(__dirname, '../../server/views/welcome.ejs'));
-        let html_body = renderer(message);*/
-        transporter.sendMail({
-          from: '"Admin Easymaq" <admin@easymaq.com>',
-          to: result.email,
-          subject: 'Easymaq',
-          html: compiledTemplate.render({ nombre: req.body.email })
-        }, function (error, response) {
-          if (error) {
-            return res.status(500).json({
-              err: error,
-              msg: 'Error al enviar email'
-            });
-          }
+        usuario.companyId = companyId;
+        if (countryId) {
+          usuario.countryId = countryId;
+        }
+        usuario.save((err) => {
+          if (err) return res.status(500).json({
+            status: 500,
+            err: err,
+            message: 'Error al actualizar Usuario'
+          });
+
+          ////////////
           Plan.create(newPlan, (err, plan) => {
             if (err) return res.status(500).json({
               err: err,
@@ -84,11 +145,106 @@ module.exports = function (server) {
               return res.status(200).json(result);
             });
           });
+          return res.status(200).json(usuario);
         });
       });
-    });
+    })
   });
 
+
+  /* CREAS USUARIO CON EMPRESA */
+  router.post('/usuarios', (req, res) => {
+    let user = {};
+    let company = {};
+    let newPlan = {
+      price: 0,
+      simple: 1000,
+      destacado: 1,
+      premium: 0,
+      dateCreated: moment().toISOString(),
+      dateTerminated: moment().add(6, 'months').toISOString()
+    }
+    Usuario.findOne({
+      where: {
+        email: req.body.email
+      }
+    }, (err, result_user) => {
+      if (err) {
+        if (err) {
+          return res.status(500).json({
+            err: err,
+            msg: 'Error al encontrar usuario'
+          });
+        }
+      } else if (result_user) {
+        let objResponse = {
+          err: err,
+          msg: 1
+        }
+        if(result_user.companyId) {
+          objResponse.msg = 2;
+        }
+        return res.status(500).json(objResponse);
+      } else {
+        user.email = req.body.email;
+        user.password = req.body.password;
+        user.home = 2;
+        user.countryId = req.body.countryId;
+        company.name = req.body.empresa;
+        company.urlImage = 'https://s3.amazonaws.com/easymaq-companies/aviso_home.png';
+        Company.create(company, (err, comp) => {
+          if (err) {
+            return res.status(500).json({
+              err: err,
+              message: 'Error al crear company'
+            });
+          }
+          user.companyId = comp.id;
+          newPlan.companyId = comp.id;
+          Usuario.create(user, (err, result) => {
+            if (err) {
+              return res.status(500).json({
+                err: err,
+                message: 'Error al guardar datos'
+              });
+            }
+            /* let message = { email: result.email }
+            let renderer = server.loopback.template(path.resolve(__dirname, '../../server/views/welcome.ejs'));
+            let html_body = renderer(message);*/
+            transporter.sendMail({
+              from: '"Admin Easymaq" <admin@easymaq.com>',
+              to: result.email,
+              subject: 'Easymaq',
+              html: compiledTemplate.render({ nombre: req.body.email })
+            }, function (error, response) {
+              if (error) {
+                return res.status(500).json({
+                  err: error,
+                  msg: 'Error al enviar email'
+                });
+              }
+              Plan.create(newPlan, (err, plan) => {
+                if (err) return res.status(500).json({
+                  err: err,
+                  msg: 'Error al crear plan'
+                });
+                plan.total = plan.simple + plan.destacado + plan.premium;
+                plan.save((err) => {
+                  if (err) return res.status(500).json({
+                    err: err,
+                    msg: 'Error al crear plan'
+                  });
+                  return res.status(200).json(result);
+                });
+              });
+            });
+          });
+        });
+      }
+    })
+  });
+
+  /* BORRAS UN USUARIO DE LA BASE DE DATOS */
   router.delete('/usuario-delete/:id', (req, res) => {
     let id = req.params.id;
     Usuario.destroyById(id, (err) => {
@@ -103,6 +259,7 @@ module.exports = function (server) {
     });
   });
 
+  /* LOGIN DEL USUARIO */
   router.post('/usuarios/login', (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -151,6 +308,7 @@ module.exports = function (server) {
     });
   });
 
+  /* ELIMINAS AL USUARIO PERO CAMBIANDO EL STATUS */
   router.delete('/usuarios/:id', (req, res) => {
     let id = req.params.id;
     Usuario.findById(id, (err, usuario) => {
@@ -172,6 +330,7 @@ module.exports = function (server) {
     });
   });
 
+  /* EDITAS USUARIO */
   router.put('/usuarios/:id', (req, res) => {
     let id = req.params.id;
     let email = req.body.email;
@@ -220,6 +379,7 @@ module.exports = function (server) {
 
     Usuario.findById(id, (err, usuario) => {
       if (err) return res.status(500).json({
+        err: err,
         status: 500,
         message: 'Error al buscar usuario'
       });
@@ -355,6 +515,7 @@ module.exports = function (server) {
       usuario.save((err) => {
         if (err) return res.status(500).json({
           status: 500,
+          err: err,
           message: 'Error al actualizar Usuario'
         });
         return res.status(200).json(usuario);

@@ -3,14 +3,14 @@ var fs = require('fs');
 var async = require('async');
 var multer = require('multer');
 var tinify = require("tinify");
-var AccessKeyID = 'AKIAIV3HRFX362E5OSCQ';
-var SecretAccessKeyID = 'Z4UjmhLnWwXU7jexWoeQr68Z4bTo3xu8SnlUm8Y0';
+var AccessKeyID = 'AKIAJGFP3QFLWEAFXRIA';
+var SecretAccessKeyID = 'bOJQMwn9rb3mSC0pwQoYi07AnhpTu5sz3XqNVc88';
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3({
   accessKeyId: AccessKeyID,
   secretAccessKey: SecretAccessKeyID
 });
-tinify.key = "ejbRY9wtrHbP2MSNAGMw0Y9MajcrLfhp";
+tinify.key = "lY3G9pIykKf8wjUsmecOFWdRm737o7df";
 tinify.validate(function (err) {
   if (err) return console.log('err credential: ', err);
   console.log('no hay error en credenciales');
@@ -67,7 +67,7 @@ module.exports = function (server) {
               err: err
             });
             s3.putObject({
-              Bucket: 'easymaq-develop-images',
+              Bucket: 'marketmaq',
               Key: 'optimized-' + obj.filename,
               ACL: 'public-read',
               Body: sourceData
@@ -75,7 +75,7 @@ module.exports = function (server) {
               if (err) return res.status(500).json({
                 err: err
               });
-              urlImages.push('https://s3.amazonaws.com/easymaq-develop-images/optimized-' + obj.filename);
+              urlImages.push('https://s3-sa-east-1.amazonaws.com/marketmaq/optimized-' + obj.filename);
               fs.unlink(ruta, (err) => {
                 if (err) return console.log('err: ', err);
                 fs.unlink(rutaToFile, (err) => {
